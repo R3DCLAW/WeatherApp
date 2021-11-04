@@ -4,19 +4,26 @@ const ForecastCard = ({ images, maxTemp, minTemp, tempState, tempDate }) => {
   const dayWeek = new Date(tempDate).getUTCDay();
   const month = new Date(tempDate).getUTCMonth();
 
-  let date = new Date(Date.UTC(year, month, dayMonth, dayWeek, 0, 0));
-  let options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
+  const printTomorrow = function (tempDate) {
+    let today = new Date();
+    let date = new Date(tempDate);
+    let options = {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      timeZone: "UTC",
+    };
+
+    if (date.getUTCDate() - today.getUTCDate() == 1) {
+      return "Tomorrow";
+    } else {
+      return date.toLocaleDateString("en-US", options);
+    }
   };
 
-  // console.log(date.toLocaleString("en-US", options));
-
   return (
-    <div className="text-white bg-[#1E213A] flex flex-col items-center py-4 px-10">
-      <h1 className="">{tempDate}</h1>
+    <div className="text-white bg-[#1E213A] flex flex-col items-center py-4 px-8">
+      <h1 className="flex flex-shrink-0">{printTomorrow(tempDate)}</h1>
       <img
         className="w-20 py-5"
         src={`/assets/${images[tempState]}`}

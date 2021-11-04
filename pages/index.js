@@ -43,8 +43,6 @@ export default function Home({ weather }) {
   const currentWeather = forecast.shift();
   const date = new Date().toDateString().split(" ").splice(0, 3).join(" ");
 
-  console.log(currentWeather);
-
   return (
     <div className="min-h-screen bg-[#1E213A]">
       <Head>
