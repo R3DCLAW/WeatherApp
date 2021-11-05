@@ -1,9 +1,4 @@
 const ForecastCard = ({ images, maxTemp, minTemp, tempState, tempDate }) => {
-  const dayMonth = new Date(tempDate).getUTCDate();
-  const year = new Date(tempDate).getUTCFullYear();
-  const dayWeek = new Date(tempDate).getUTCDay();
-  const month = new Date(tempDate).getUTCMonth();
-
   const printTomorrow = function (tempDate) {
     let today = new Date();
     let date = new Date(tempDate);

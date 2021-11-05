@@ -1,6 +1,7 @@
 import Head from "next/head";
 import ForecastCard from "../components/ForecastCard/ForecastCard";
 import ProgressBar from "../components/ProgressBar/ProgressBar";
+import { useState } from "react";
 import { BiCurrentLocation } from "react-icons/bi";
 import { GoLocation } from "react-icons/go";
 
@@ -39,6 +40,12 @@ const directionIcon = {
 };
 
 export default function Home({ weather }) {
+  const [sidebar, setSidebar] = useState(false);
+
+  const handleSidebar = () => {
+    setSidebar(!sidebar);
+  };
+
   const forecast = weather.consolidated_weather.slice();
   const currentWeather = forecast.shift();
   const date = new Date().toDateString().split(" ").splice(0, 3).join(" ");
@@ -52,9 +59,39 @@ export default function Home({ weather }) {
       </Head>
 
       <main className="flex flex-col">
-        {
-          // Left / Top side of the page
-        }
+        {/* // Left / Top side of the page */}
+
+        {/* sidebar */}
+        <div
+          className={
+            sidebar
+              ? "bg-[#1E213A] fixed inset-y-0 left-0 w-full z-50 duration-300 transition-right"
+              : "hidden opacity-0"
+          }
+        >
+          <div className="flex justify-end px-7 py-4">
+            <button
+              className="text-white transition hover:text-red-400 cursor-pointer"
+              onClick={handleSidebar}
+              type="submit"
+            >
+              X
+            </button>
+          </div>
+          <div className="w-full flex justify-between px-7">
+            <input
+              className="w-64 border-2 border-white"
+              type="text"
+              placeholder="Search location"
+            ></input>
+            <button className="py-2 px-5 bg-[#3C47E9] text-white" type="submit">
+              Search
+            </button>
+          </div>
+          <div>{/* lista */}</div>
+        </div>
+
+        {/* Main */}
 
         <div className="relative flex flex-col min-h-screen items-center justify-between pb-32 pt-3">
           <div className="absolute h-full overflow-x-hidden">
@@ -65,11 +102,18 @@ export default function Home({ weather }) {
             />
           </div>
 
-          <div className="text-white flex justify-between w-full pt-2 px-4">
-            <button className="bg-[#6E707A] py-1 px-4" type="button">
+          {/* Location buttons */}
+
+          <div className="text-white flex justify-between w-full pt-2 px-4 z-40">
+            <button
+              className="bg-[#6E707A] py-1 px-4"
+              onClick={handleSidebar}
+              type="button"
+            >
               Search for places
             </button>
-            <button className="bg-[#6E707A] rounded-full" type="button">
+
+            <button className="bg-[#6E707A] rounded-full" type="submit">
               <BiCurrentLocation />
             </button>
           </div>
